@@ -9,5 +9,18 @@ namespace CourseWork.Models
     /// </summary>
     public class Vector
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector"/> class.
+        /// </summary>
+        /// <param name="numbers">Numbers in vector.</param>
+        public Vector(double[] numbers)
+        {
+            Numbers = numbers;
+        }
+
+        /// <summary>
+        /// Gets or sets numbers in vector.
+        /// </summary>
+        public double[] Numbers { get; set; }
     }
 }

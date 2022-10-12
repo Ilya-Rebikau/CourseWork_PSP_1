@@ -5,11 +5,11 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWork.API", "src\CourseWork.API\CourseWork.API.csproj", "{FC6DB267-4398-472D-9CFE-56E743AD7649}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWork.DAL", "src\CourseWork.DAL\CourseWork.DAL.csproj", "{CB0AF749-A612-4FDA-9BC5-F6702513A76E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseWork.DAL", "src\CourseWork.DAL\CourseWork.DAL.csproj", "{CB0AF749-A612-4FDA-9BC5-F6702513A76E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWork.Web", "src\CourseWork.Web\CourseWork.Web.csproj", "{3A47937B-981A-4C58-89E3-52BA125207AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWork.Models", "src\CourseWork.Models\CourseWork.Models.csproj", "{9B6B2597-1604-4E30-AF1A-F0E733FDDCBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseWork.Models", "src\CourseWork.Models\CourseWork.Models.csproj", "{9B6B2597-1604-4E30-AF1A-F0E733FDDCBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
