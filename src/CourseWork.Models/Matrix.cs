@@ -4,9 +4,12 @@
 
 namespace CourseWork.Models
 {
+    using System.Xml.Serialization;
+
     /// <summary>
     /// Represents matrix model.
     /// </summary>
+    [Serializable]
     public class Matrix
     {
         /// <summary>
@@ -17,29 +20,50 @@ namespace CourseWork.Models
         {
             Numbers = numbers;
             Size = numbers.GetLength(0);
-            SingleDimensionNumbers = new double[numbers.Length];
-            for (int i = 0; i < Size; i++)
-            {
-                for (int j = 0; j < Size; j++)
-                {
-                    SingleDimensionNumbers.Append(numbers[i, j]);
-                }
-            }
+            ConvertDoubleDimensionsArrayToSingleDimensionArray(numbers);
         }
 
         /// <summary>
-        /// Gets size of matrix.
+        /// Initializes a new instance of the <see cref="Matrix"/> class.
+        /// Needs for serialization and deserialization.
         /// </summary>
-        public int Size { get; }
+        private Matrix()
+        {
+        }
+
+        /// <summary>
+        /// Gets or sets size of matrix.
+        /// </summary>
+        [XmlElement]
+        public int Size { get; set; }
 
         /// <summary>
         /// Gets or sets numbers in matrix.
         /// </summary>
+        [XmlIgnore]
         public double[,] Numbers { get; set; }
 
         /// <summary>
-        /// Gets numbers in matrix in single dimension array.
+        /// Gets or sets numbers in matrix in single dimension array.
         /// </summary>
-        public double[] SingleDimensionNumbers { get; }
+        [XmlArray]
+        public double[] SingleDimensionNumbers { get; set; }
+
+        /// <summary>
+        /// Converting double dimensions array to single dimension array.
+        /// </summary>
+        /// <param name="numbers">Double dimensions array.</param>
+        private void ConvertDoubleDimensionsArrayToSingleDimensionArray(double[,] numbers)
+        {
+            SingleDimensionNumbers = new double[numbers.Length];
+            int k = 0;
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    SingleDimensionNumbers[k++] = numbers[i, j];
+                }
+            }
+        }
     }
 }
