@@ -16,9 +16,10 @@ namespace CourseWork.Models
         /// Initializes a new instance of the <see cref="Vector"/> class.
         /// </summary>
         /// <param name="numbers">Numbers in vector.</param>
-        public Vector(double[] numbers)
+        public Vector(float[] numbers)
         {
             Numbers = numbers;
+            Size = numbers.Length;
         }
 
         /// <summary>
@@ -33,6 +34,12 @@ namespace CourseWork.Models
         /// Gets or sets numbers in vector.
         /// </summary>
         [XmlArray]
-        public double[] Numbers { get; set; }
+        public float[] Numbers { get; set; }
+
+        /// <summary>
+        /// Gets or sets size of vector.
+        /// </summary>
+        [XmlElement]
+        public int Size { get; set; }
     }
 }

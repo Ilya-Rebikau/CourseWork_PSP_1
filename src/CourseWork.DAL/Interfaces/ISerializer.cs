@@ -18,10 +18,10 @@ namespace CourseWork.DAL.Interfaces
         T ReadObject(string data);
 
         /// <summary>
-        /// Write object to string data.
+        /// Write object to file.
         /// </summary>
         /// <param name="myObject">Object for deserialization.</param>
-        /// <returns>String data.</returns>
-        string WriteObject(T myObject);
+        /// <param name="path">Path to file.</param>
+        void WriteObject(T myObject, string path);
     }
 }

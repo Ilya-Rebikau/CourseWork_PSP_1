@@ -16,11 +16,16 @@ namespace CourseWork.Models
         /// Initializes a new instance of the <see cref="Matrix"/> class.
         /// </summary>
         /// <param name="numbers">Numbers in matrix.</param>
-        public Matrix(double[,] numbers)
+        /// <exception cref="ArgumentException">Throws ArgumentException in case matrix is not square.</exception>
+        public Matrix(float[][] numbers)
         {
+            if (numbers.Length != numbers[0].Length)
+            {
+                throw new ArgumentException("Matrix is not square");
+            }
+
             Numbers = numbers;
-            Size = numbers.GetLength(0);
-            ConvertDoubleDimensionsArrayToSingleDimensionArray(numbers);
+            Size = numbers.Length;
         }
 
         /// <summary>
@@ -40,30 +45,8 @@ namespace CourseWork.Models
         /// <summary>
         /// Gets or sets numbers in matrix.
         /// </summary>
-        [XmlIgnore]
-        public double[,] Numbers { get; set; }
-
-        /// <summary>
-        /// Gets or sets numbers in matrix in single dimension array.
-        /// </summary>
         [XmlArray]
-        public double[] SingleDimensionNumbers { get; set; }
-
-        /// <summary>
-        /// Converting double dimensions array to single dimension array.
-        /// </summary>
-        /// <param name="numbers">Double dimensions array.</param>
-        private void ConvertDoubleDimensionsArrayToSingleDimensionArray(double[,] numbers)
-        {
-            SingleDimensionNumbers = new double[numbers.Length];
-            int k = 0;
-            for (int i = 0; i < Size; i++)
-            {
-                for (int j = 0; j < Size; j++)
-                {
-                    SingleDimensionNumbers[k++] = numbers[i, j];
-                }
-            }
-        }
+        [XmlArrayItem("Row")]
+        public float[][] Numbers { get; set; }
     }
 }

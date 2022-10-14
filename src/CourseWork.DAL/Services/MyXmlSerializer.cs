@@ -23,12 +23,12 @@ namespace CourseWork.DAL.Services
         }
 
         /// <inheritdoc/>
-        public string WriteObject(T myObject)
+        public void WriteObject(T myObject, string path)
         {
-            using TextWriter writer = new StringWriter();
+            using StreamWriter writer = new StreamWriter(path);
             var xmlSerializer = new XmlSerializer(typeof(T));
             xmlSerializer.Serialize(writer, myObject);
-            return writer.ToString();
+            writer.Close();
         }
     }
 }
