@@ -1,3 +1,7 @@
+// <copyright file="Program.cs" company="IlyaRebikau">
+// Copyright (c) IlyaRebikau. All rights reserved.
+// </copyright>
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

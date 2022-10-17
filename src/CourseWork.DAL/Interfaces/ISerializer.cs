@@ -11,11 +11,11 @@ namespace CourseWork.DAL.Interfaces
     public interface ISerializer<T>
     {
         /// <summary>
-        /// Reading object from string data.
+        /// Reading object from byte data.
         /// </summary>
-        /// <param name="data">String data.</param>
+        /// <param name="data">Byte data.</param>
         /// <returns>Serialized object.</returns>
-        T ReadObject(string data);
+        T ReadObject(byte[] data);
 
         /// <summary>
         /// Write object to file.

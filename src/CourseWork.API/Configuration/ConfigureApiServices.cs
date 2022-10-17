@@ -2,27 +2,23 @@
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
 
-namespace CourseWork.DAL.Configuration
+namespace CourseWork.API.Configuration
 {
-    using CourseWork.DAL.Interfaces;
-    using CourseWork.DAL.Models;
-    using CourseWork.DAL.Services;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
-    /// Configure services from DAL.
+    /// Configure services from API.
     /// </summary>
-    public static class ConfigureDalServices
+    public static class ConfigureApiServices
     {
         /// <summary>
-        /// Extension method for IServiceCollection to add DAL services.
+        /// Extension method for IServiceCollection to add API services.
         /// </summary>
         /// <param name="services">Services.</param>
         /// <returns>Added services.</returns>
         public static IServiceCollection AddDalServices(this IServiceCollection services)
         {
-            services.AddScoped<ISerializer<Matrix>, MyXmlSerializer<Matrix>>();
-            services.AddScoped<ISerializer<Vector>, MyXmlSerializer<Vector>>();
+            services.AddDalServices();
             return services;
         }
     }

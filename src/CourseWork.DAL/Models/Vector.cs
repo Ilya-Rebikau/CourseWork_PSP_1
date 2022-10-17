@@ -2,7 +2,7 @@
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
 
-namespace CourseWork.Models
+namespace CourseWork.DAL.Models
 {
     using System.Xml.Serialization;
 
