@@ -2,7 +2,7 @@
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
 
-namespace CourseWork.API.Models
+namespace CourseWork.DistributionAPI.Models
 {
     /// <summary>
     /// Represents data model for file.

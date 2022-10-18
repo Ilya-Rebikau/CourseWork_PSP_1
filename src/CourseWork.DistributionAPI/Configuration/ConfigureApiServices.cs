@@ -1,8 +1,8 @@
-﻿// <copyright file="ConfigureDalServices.cs" company="IlyaRebikau">
+﻿// <copyright file="ConfigureApiServices.cs" company="IlyaRebikau">
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
 
-namespace CourseWork.API.Configuration
+namespace CourseWork.DistributionAPI.Configuration
 {
     using Microsoft.Extensions.DependencyInjection;
 
@@ -16,9 +16,10 @@ namespace CourseWork.API.Configuration
         /// </summary>
         /// <param name="services">Services.</param>
         /// <returns>Added services.</returns>
-        public static IServiceCollection AddDalServices(this IServiceCollection services)
+        public static IServiceCollection AddAPIServices(this IServiceCollection services)
         {
-            services.AddDalServices();
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
             return services;
         }
     }
