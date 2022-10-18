@@ -17,13 +17,13 @@ namespace CourseWork.Web.Controllers
         /// <summary>
         /// HttpClient.
         /// </summary>
-        private readonly IHttpClient _httpClient;
+        private readonly IDistributionHttpClient _httpClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FilesController"/> class.
         /// </summary>
         /// <param name="httpClient">HttpClient.</param>
-        public FilesController(IHttpClient httpClient)
+        public FilesController(IDistributionHttpClient httpClient)
         {
             _httpClient = httpClient;
         }

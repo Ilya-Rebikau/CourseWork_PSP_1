@@ -1,4 +1,4 @@
-﻿// <copyright file="IHttpClient.cs" company="IlyaRebikau">
+﻿// <copyright file="IDistributionHttpClient.cs" company="IlyaRebikau">
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
 
@@ -10,7 +10,7 @@ namespace CourseWork.Web.Interfaces
     /// <summary>
     /// HttpClient for api.
     /// </summary>
-    public interface IHttpClient
+    public interface IDistributionHttpClient
     {
         /// <summary>
         /// Sending file data to API.

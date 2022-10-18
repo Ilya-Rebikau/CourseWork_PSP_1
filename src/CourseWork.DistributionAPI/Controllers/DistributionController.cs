@@ -1,4 +1,4 @@
-﻿// <copyright file="FilesController.cs" company="IlyaRebikau">
+﻿// <copyright file="DistributionController.cs" company="IlyaRebikau">
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
 
@@ -22,8 +22,9 @@ namespace CourseWork.DistributionAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RecieveFiles([FromBody] FileDataModel matrixFileData, [FromBody] FileDataModel vectorFileData)
+        public async Task<IActionResult> DistributeFiles([FromBody] FileDataModel matrixFileData, [FromBody] FileDataModel vectorFileData)
         {
+            //TODO распределение файлов по серверам.
             return Ok();
         }
     }
