@@ -56,14 +56,13 @@ namespace CourseWork.ComputingAPI.Controllers
         /// <summary>
         /// Gets result of slae solving it via the Cholesky method.
         /// </summary>
-        /// <param name="matrixData">Matrix data.</param>
-        /// <param name="vectorData">Vector data.</param>
+        /// <param name="data">Data model with matrix and vector data.</param>
         /// <returns>Vector-result X.</returns>
         [HttpPost("GetResult")]
-        public FileResult GetSlaeResult([FromBody] FileDataModel matrixData, [FromBody] FileDataModel vectorData)
+        public FileResult GetSlaeResult([FromBody] FileDataModel data)
         {
-            var matrix = _matrixSerializer.ReadObject(matrixData.Data);
-            var vector = _vectorSerializer.ReadObject(vectorData.Data);
+            var matrix = _matrixSerializer.ReadObject(data.MatrixData);
+            var vector = _vectorSerializer.ReadObject(data.VectorData);
             var solver = new CholeskyMethod(matrix, vector);
             var vectorX = solver.Solve();
             _vectorSerializer.WriteObject(vectorX, _pathToResultWithFileName);

@@ -22,6 +22,7 @@ namespace CourseWork.ComputingAPI.Configuration
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddDalServices();
+            services.AddControllers();
             return services;
         }
     }
