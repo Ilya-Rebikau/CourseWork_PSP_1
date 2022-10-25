@@ -10,7 +10,7 @@ namespace CourseWork.DistributionAPI.Controllers
     /// <summary>
     /// Working with files uploading and downloading.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("distributionapi/[controller]")]
     [ApiController]
     public class DistributionController : ControllerBase
     {

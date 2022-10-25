@@ -4,6 +4,7 @@
 
 namespace CourseWork.ComputingAPI.Configuration
 {
+    using CourseWork.DAL.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
@@ -20,6 +21,7 @@ namespace CourseWork.ComputingAPI.Configuration
         {
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            services.AddDalServices();
             return services;
         }
     }
