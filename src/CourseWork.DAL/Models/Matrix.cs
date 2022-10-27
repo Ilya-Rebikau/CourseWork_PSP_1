@@ -16,16 +16,27 @@ namespace CourseWork.DAL.Models
         /// Initializes a new instance of the <see cref="Matrix"/> class.
         /// </summary>
         /// <param name="numbers">Numbers in matrix.</param>
-        /// <exception cref="ArgumentException">Throws ArgumentException in case matrix is not square.</exception>
+        /// <exception cref="ArgumentException">Throws ArgumentException in case matrix is not square or not symmetric.</exception>
         public Matrix(float[][] numbers)
         {
             if (numbers.Length != numbers[0].Length)
             {
-                throw new ArgumentException("Matrix is not square");
+                throw new ArgumentException("Матрица не квадратная!");
             }
 
             Numbers = numbers;
             Size = numbers.Length;
+            var transposedMatrix = numbers.Transpose();
+            for (int i = 0; i < Size; i++)
+            {
+                for (int j = 0; j < Size; j++)
+                {
+                    if (numbers[i][j] != transposedMatrix[i][j])
+                    {
+                        throw new ArgumentException("Матрица не симметричная!");
+                    }
+                }
+            }
         }
 
         /// <summary>

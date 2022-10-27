@@ -1,12 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Главная страница";
 }
 
 <div class="text-center">
-    <label for="file-input">Send file</label>
     <form asp-controller="Files" asp-action="SendMatrixAndVectorToServer" method="post" enctype="multipart/form-data">
+        <label>Выберите файл с матрицей: </label>
         <input type="file" name="matrixFile" /><br>
+        <label>Выберите файл с вектором: </label>
         <input type="file" name="vectorFile" /><br>
-        <input type="submit" value="Open" />
+        <input type="submit" value="Отправить" />
     </form>
 </div>

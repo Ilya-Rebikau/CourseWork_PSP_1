@@ -21,10 +21,17 @@ namespace CourseWork.DistributionAPI.Controllers
         {
         }
 
+        /// <summary>
+        /// Distribute data between different servers.
+        /// </summary>
+        /// <param name="data">Data with matrix and vector.</param>
+        /// <returns></returns>
         [HttpPost("DistributeFiles")]
         public async Task<IActionResult> DistributeFiles([FromBody] FileDataModel data)
         {
-            //TODO распределение файлов по серверам.
+            await Task.Delay(1);
+
+            // TODO распределение файлов по серверам.
             return Ok();
         }
     }

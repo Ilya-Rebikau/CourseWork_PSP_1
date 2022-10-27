@@ -40,9 +40,19 @@ namespace CourseWork.Web.Controllers
             using var matrixStream = matrixFile.OpenReadStream();
             byte[] matrixData = new byte[matrixStream.Length];
             await matrixStream.ReadAsync(matrixData);
+            if (matrixData.Length == 0)
+            {
+                throw new ArgumentException("Файл с матрицей пустой!");
+            }
+
             using var vectorStream = vectorFile.OpenReadStream();
             byte[] vectorData = new byte[vectorStream.Length];
             await vectorStream.ReadAsync(vectorData);
+            if (vectorData.Length == 0)
+            {
+                throw new ArgumentException("Файл с вектором пустой!");
+            }
+
             var data = new FileDataModel
             {
                 MatrixData = matrixData,
@@ -53,14 +63,15 @@ namespace CourseWork.Web.Controllers
             return RedirectToAction(nameof(Index), typeof(HomeController).GetControllerName());
         }
 
-        ///// <summary>
-        ///// Recieve vector X from server.
-        ///// </summary>
-        ///// <returns>File with vector X.</returns>
-        //[HttpGet]
-        //public FileResult RecieveVectorX()
-        //{
-        //    return File();
-        //}
+        /// <summary>
+        /// Recieve vector X from server.
+        /// </summary>
+        /// <returns>File with vector X.</returns>
+        [HttpGet]
+        public ActionResult RecieveVectorX()
+        {
+            // TODO изменить ретурн и получить вектор.
+            return Ok();
+        }
     }
 }
