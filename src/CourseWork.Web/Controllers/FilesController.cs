@@ -29,23 +29,38 @@ namespace CourseWork.Web.Controllers
         }
 
         /// <summary>
-        /// Send file to server.
+        /// Send files with matrix and vector to server.
         /// </summary>
-        /// <param name="file">File.</param>
+        /// <param name="matrixFile">File with matrix.</param>
+        /// <param name="vectorFile">File with vector.</param>
         /// <returns>Redirection to main page.</returns>
-        [HttpPost("send")]
-        public async Task<IActionResult> SendFile(IFormFile file)
+        [HttpPost]
+        public async Task<IActionResult> SendMatrixAndVectorToServer(IFormFile matrixFile, IFormFile vectorFile)
         {
-            using var stream = file.OpenReadStream();
-            byte[] fileData = new byte[stream.Length];
-            await stream.ReadAsync(fileData);
+            using var matrixStream = matrixFile.OpenReadStream();
+            byte[] matrixData = new byte[matrixStream.Length];
+            await matrixStream.ReadAsync(matrixData);
+            using var vectorStream = vectorFile.OpenReadStream();
+            byte[] vectorData = new byte[vectorStream.Length];
+            await vectorStream.ReadAsync(vectorData);
             var data = new FileDataModel
             {
-                Data = fileData,
+                MatrixData = matrixData,
+                VectorData = vectorData,
             };
 
             await _httpClient.SendFileToServer(data);
             return RedirectToAction(nameof(Index), typeof(HomeController).GetControllerName());
         }
+
+        ///// <summary>
+        ///// Recieve vector X from server.
+        ///// </summary>
+        ///// <returns>File with vector X.</returns>
+        //[HttpGet]
+        //public FileResult RecieveVectorX()
+        //{
+        //    return File();
+        //}
     }
 }

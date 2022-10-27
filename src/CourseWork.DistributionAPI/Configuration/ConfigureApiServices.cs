@@ -20,6 +20,7 @@ namespace CourseWork.DistributionAPI.Configuration
         {
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            services.AddControllers();
             return services;
         }
     }

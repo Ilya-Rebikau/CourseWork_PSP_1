@@ -17,6 +17,7 @@ namespace CourseWork.Web.Interfaces
         /// </summary>
         /// <param name="fileData">File data.</param>
         /// <returns>Task.</returns>
+        [Post("Distribution/DistributeFiles")]
         Task SendFileToServer([Body] FileDataModel fileData);
     }
 }

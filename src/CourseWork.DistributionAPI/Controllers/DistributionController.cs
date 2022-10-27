@@ -10,7 +10,7 @@ namespace CourseWork.DistributionAPI.Controllers
     /// <summary>
     /// Working with files uploading and downloading.
     /// </summary>
-    [Route("distributionapi/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class DistributionController : ControllerBase
     {
@@ -21,8 +21,8 @@ namespace CourseWork.DistributionAPI.Controllers
         {
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DistributeFiles([FromBody] FileDataModel matrixFileData, [FromBody] FileDataModel vectorFileData)
+        [HttpPost("DistributeFiles")]
+        public async Task<IActionResult> DistributeFiles([FromBody] FileDataModel data)
         {
             //TODO распределение файлов по серверам.
             return Ok();

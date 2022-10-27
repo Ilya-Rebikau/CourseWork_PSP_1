@@ -4,7 +4,9 @@
 
 namespace CourseWork.Web.Configuration
 {
+    using CourseWork.Web.Interfaces;
     using Microsoft.Extensions.DependencyInjection;
+    using RestEase;
 
     /// <summary>
     /// Configure services from Web.
@@ -16,9 +18,15 @@ namespace CourseWork.Web.Configuration
         /// </summary>
         /// <param name="services">Services.</param>
         /// <returns>Added services.</returns>
-        public static IServiceCollection AddWebServices(this IServiceCollection services)
+        public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllersWithViews();
+            services.AddHttpClient();
+            services.AddScoped(scope =>
+            {
+                var baseUrl = configuration["DistributionApiAddress"];
+                return RestClient.For<IDistributionHttpClient>(baseUrl);
+            });
             return services;
         }
     }
