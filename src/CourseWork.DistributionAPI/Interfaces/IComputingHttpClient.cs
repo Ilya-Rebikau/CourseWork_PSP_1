@@ -19,5 +19,12 @@ namespace CourseWork.DistributionAPI.Interfaces
         /// <returns>Task with result.</returns>
         [Post("Maths/GetResult")]
         Task<DataModel> GetResult([Body] DataModel fileData);
+
+        /// <summary>
+        /// Check computing method for working.
+        /// </summary>
+        /// <returns>True if working right now and false if not.</returns>
+        [Get("Maths/CheckForWork")]
+        Task<bool> CheckForWork();
     }
 }

@@ -15,6 +15,8 @@ namespace CourseWork.ComputingAPI.Controllers
     [ApiController]
     public class MathsController : ControllerBase
     {
+        private static bool _isWorking = false;
+
         /// <summary>
         /// Gets result of slae solving it via the Cholesky method.
         /// </summary>
@@ -24,6 +26,7 @@ namespace CourseWork.ComputingAPI.Controllers
         [DisableRequestSizeLimit]
         public DataModel GetSlaeResult([FromBody] DataModel data)
         {
+            _isWorking = true;
             var solver = new CholeskyMethod(data.Matrix, data.Vector);
             var vectorX = solver.Solve();
             var result = new DataModel
@@ -31,7 +34,18 @@ namespace CourseWork.ComputingAPI.Controllers
                 Vector = vectorX,
             };
 
+            _isWorking = false;
             return result;
+        }
+
+        /// <summary>
+        /// Check computing method for working.
+        /// </summary>
+        /// <returns>True if working right now and false if not.</returns>
+        [HttpGet("CheckForWork")]
+        public bool CheckForWork()
+        {
+            return _isWorking;
         }
     }
 }

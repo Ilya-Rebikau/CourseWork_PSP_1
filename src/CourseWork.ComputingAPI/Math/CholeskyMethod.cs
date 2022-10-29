@@ -54,6 +54,7 @@ namespace CourseWork.ComputingAPI.Math
                     {
                         temp += l[i][k] * l[j][k];
                     }
+
                     l[i][j] = (Matrix.Numbers[i][j] - temp) / l[j][j];
                 }
 
