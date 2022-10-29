@@ -4,18 +4,16 @@
 
 namespace CourseWork.ComputingAPI.Controllers
 {
-    using System.IO;
     using CourseWork.ComputingAPI.Math;
     using CourseWork.ComputingAPI.Models;
     using CourseWork.DAL.Interfaces;
     using CourseWork.DAL.Models;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Doing math computing.
     /// </summary>
-    [Route("computingapi/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class MathsController : ControllerBase
     {
@@ -30,43 +28,37 @@ namespace CourseWork.ComputingAPI.Controllers
         private readonly ISerializer<Vector> _vectorSerializer;
 
         /// <summary>
-        /// Path to file with result of slae.
-        /// </summary>
-        private readonly string _pathToResult;
-
-        /// <summary>
-        /// Path to file with result of slae with its name.
-        /// </summary>
-        private readonly string _pathToResultWithFileName;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="MathsController"/> class.
         /// </summary>
         /// <param name="matrixSerializer">Serializer for matrix.</param>
         /// <param name="vectorSerializer">Serializer for vector.</param>
-        /// <param name="environment">Web environment.</param>
-        public MathsController(ISerializer<Matrix> matrixSerializer, ISerializer<Vector> vectorSerializer, IWebHostEnvironment environment)
+        public MathsController(ISerializer<Matrix> matrixSerializer, ISerializer<Vector> vectorSerializer)
         {
             _matrixSerializer = matrixSerializer;
             _vectorSerializer = vectorSerializer;
-            _pathToResult = Path.Combine(environment.WebRootPath, "Files");
-            _pathToResultWithFileName = Path.Combine(_pathToResult, "VectorX.xml");
         }
 
         /// <summary>
         /// Gets result of slae solving it via the Cholesky method.
         /// </summary>
         /// <param name="data">Data model with matrix and vector data.</param>
-        /// <returns>Vector-result X.</returns>
+        /// <returns>FileDataModel with result-vector.</returns>
         [HttpPost("GetResult")]
-        public FileResult GetSlaeResult([FromBody] FileDataModel data)
+        public async Task<FileDataModel> GetSlaeResult([FromBody] FileDataModel data)
         {
-            var matrix = _matrixSerializer.ReadObject(data.MatrixData);
-            var vector = _vectorSerializer.ReadObject(data.VectorData);
-            var solver = new CholeskyMethod(matrix, vector);
-            var vectorX = solver.Solve();
-            _vectorSerializer.WriteObject(vectorX, _pathToResultWithFileName);
-            return File(_pathToResult, "application/xml", "VectorX.xml");
+            return await Task.Run(() =>
+            {
+                var matrix = _matrixSerializer.ReadObject(data.MatrixData);
+                var vector = _vectorSerializer.ReadObject(data.VectorData);
+                var solver = new CholeskyMethod(matrix, vector);
+                var vectorX = solver.Solve();
+                var result = new FileDataModel
+                {
+                    VectorData = _vectorSerializer.WriteObject(vectorX),
+                };
+
+                return result;
+            });
         }
     }
 }

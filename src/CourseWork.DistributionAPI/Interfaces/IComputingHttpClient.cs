@@ -4,10 +4,20 @@
 
 namespace CourseWork.DistributionAPI.Interfaces
 {
+    using CourseWork.DistributionAPI.Models;
+    using RestEase;
+
     /// <summary>
     /// Http client for computing API.
     /// </summary>
     public interface IComputingHttpClient
     {
+        /// <summary>
+        /// Sending data to computing API.
+        /// </summary>
+        /// <param name="fileData">File data.</param>
+        /// <returns>Task with result.</returns>
+        [Post("Maths/GetResult")]
+        Task<FileDataModel> GetResult([Body] FileDataModel fileData);
     }
 }

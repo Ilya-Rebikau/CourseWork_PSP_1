@@ -4,6 +4,7 @@
 
 namespace CourseWork.DistributionAPI.Controllers
 {
+    using CourseWork.DistributionAPI.Interfaces;
     using CourseWork.DistributionAPI.Models;
     using Microsoft.AspNetCore.Mvc;
 
@@ -14,25 +15,26 @@ namespace CourseWork.DistributionAPI.Controllers
     [ApiController]
     public class DistributionController : ControllerBase
     {
+        IComputingHttpClient _httpClient;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DistributionController"/> class.
         /// </summary>
-        public DistributionController()
+        public DistributionController(IComputingHttpClient httpClient)
         {
+            _httpClient = httpClient;
         }
 
         /// <summary>
         /// Distribute data between different servers.
         /// </summary>
         /// <param name="data">Data with matrix and vector.</param>
-        /// <returns></returns>
+        /// <returns>Task with result.</returns>
         [HttpPost("DistributeFiles")]
-        public async Task<IActionResult> DistributeFiles([FromBody] FileDataModel data)
+        public async Task<FileDataModel> DistributeFiles([FromBody] FileDataModel data)
         {
-            await Task.Delay(1);
-
-            // TODO распределение файлов по серверам.
-            return Ok();
+            var result = await _httpClient.GetResult(data);
+            return result;
         }
     }
 }

@@ -18,10 +18,10 @@ namespace CourseWork.DAL.Interfaces
         T ReadObject(byte[] data);
 
         /// <summary>
-        /// Write object to file.
+        /// Write object to bytes array.
         /// </summary>
         /// <param name="myObject">Object for deserialization.</param>
-        /// <param name="path">Path to file.</param>
-        void WriteObject(T myObject, string path);
+        /// <returns>Array of bytes with object in xml format.</returns>
+        byte[] WriteObject(T myObject);
     }
 }

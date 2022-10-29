@@ -4,7 +4,9 @@
 
 namespace CourseWork.DistributionAPI.Configuration
 {
+    using CourseWork.DistributionAPI.Interfaces;
     using Microsoft.Extensions.DependencyInjection;
+    using RestEase;
 
     /// <summary>
     /// Configure services from API.
@@ -16,11 +18,17 @@ namespace CourseWork.DistributionAPI.Configuration
         /// </summary>
         /// <param name="services">Services.</param>
         /// <returns>Added services.</returns>
-        public static IServiceCollection AddAPIServices(this IServiceCollection services)
+        public static IServiceCollection AddAPIServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddControllers();
+            services.AddHttpClient();
+            services.AddScoped(scope =>
+            {
+                var baseUrl = configuration["ComputingApiAddress"];
+                return RestClient.For<IComputingHttpClient>(baseUrl);
+            });
             return services;
         }
     }

@@ -5,6 +5,7 @@
 namespace CourseWork.DAL.Models
 {
     using System.Xml.Serialization;
+    using Accord.Math;
 
     /// <summary>
     /// Represents matrix model.

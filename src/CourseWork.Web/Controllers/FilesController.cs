@@ -4,7 +4,6 @@
 
 namespace CourseWork.Web.Controllers
 {
-    using CourseWork.Web.Extensions;
     using CourseWork.Web.Interfaces;
     using CourseWork.Web.Models;
     using Microsoft.AspNetCore.Mvc;
@@ -29,14 +28,15 @@ namespace CourseWork.Web.Controllers
         }
 
         /// <summary>
-        /// Send files with matrix and vector to server.
+        /// Send files with matrix and vector to server and get result file.
         /// </summary>
         /// <param name="matrixFile">File with matrix.</param>
         /// <param name="vectorFile">File with vector.</param>
-        /// <returns>Redirection to main page.</returns>
+        /// <returns>File with result vector.</returns>
         [HttpPost]
         public async Task<IActionResult> SendMatrixAndVectorToServer(IFormFile matrixFile, IFormFile vectorFile)
         {
+            CheckFilesForNull(matrixFile, vectorFile);
             using var matrixStream = matrixFile.OpenReadStream();
             byte[] matrixData = new byte[matrixStream.Length];
             await matrixStream.ReadAsync(matrixData);
@@ -59,19 +59,21 @@ namespace CourseWork.Web.Controllers
                 VectorData = vectorData,
             };
 
-            await _httpClient.SendFileToServer(data);
-            return RedirectToAction(nameof(Index), typeof(HomeController).GetControllerName());
+            var result = await _httpClient.SendFileToServer(data);
+            return File(result.VectorData, "application/xml", "VectorX.xml");
         }
 
-        /// <summary>
-        /// Recieve vector X from server.
-        /// </summary>
-        /// <returns>File with vector X.</returns>
-        [HttpGet]
-        public ActionResult RecieveVectorX()
+        private static void CheckFilesForNull(IFormFile matrixFile, IFormFile vectorFile)
         {
-            // TODO изменить ретурн и получить вектор.
-            return Ok();
+            if (matrixFile == null)
+            {
+                throw new ArgumentException("Файл с матрицей не загружен!");
+            }
+
+            if (vectorFile == null)
+            {
+                throw new ArgumentException("Файл с вектором не загружен!");
+            }
         }
     }
 }

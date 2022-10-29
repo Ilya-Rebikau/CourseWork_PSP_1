@@ -4,6 +4,7 @@
 
 namespace CourseWork.DAL.Services
 {
+    using System.Net.NetworkInformation;
     using System.Text;
     using System.Xml.Serialization;
     using CourseWork.DAL.Interfaces;
@@ -25,12 +26,13 @@ namespace CourseWork.DAL.Services
         }
 
         /// <inheritdoc/>
-        public void WriteObject(T myObject, string path)
+        public byte[] WriteObject(T myObject)
         {
-            using var writer = new StreamWriter(path);
+            using var writer = new StringWriter();
             var xmlSerializer = new XmlSerializer(typeof(T));
             xmlSerializer.Serialize(writer, myObject);
-            writer.Close();
+            byte[] bytes = Encoding.ASCII.GetBytes(writer.ToString());
+            return bytes;
         }
     }
 }
