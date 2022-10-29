@@ -18,7 +18,7 @@ namespace CourseWork.DAL.Services
         /// <inheritdoc/>
         public T ReadObject(byte[] data)
         {
-            string stringData = Encoding.UTF8.GetString(data);
+            string stringData = Encoding.ASCII.GetString(data);
             using var reader = new StringReader(stringData);
             var xmlSerializer = new XmlSerializer(typeof(T));
             var myObject = (T)xmlSerializer.Deserialize(reader);

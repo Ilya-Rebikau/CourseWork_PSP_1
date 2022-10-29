@@ -28,6 +28,7 @@ namespace CourseWork.Web.Configuration
                 var baseUrl = configuration["DistributionApiAddress"];
                 return RestClient.For<IDistributionHttpClient>(baseUrl);
             });
+
             return services;
         }
     }

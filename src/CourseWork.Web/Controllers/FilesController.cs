@@ -19,40 +19,32 @@ namespace CourseWork.Web.Controllers
         private readonly IDistributionHttpClient _httpClient;
 
         /// <summary>
+        /// Path to files directory.
+        /// </summary>
+        private readonly string _pathToFiles;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FilesController"/> class.
         /// </summary>
         /// <param name="httpClient">HttpClient.</param>
-        public FilesController(IDistributionHttpClient httpClient)
+        /// <param name="environment">IWebHostEnvironment object.</param>
+        public FilesController(IDistributionHttpClient httpClient, IWebHostEnvironment environment)
         {
             _httpClient = httpClient;
+            _pathToFiles = Path.Combine(environment.WebRootPath, "files");
         }
 
         /// <summary>
         /// Send files with matrix and vector to server and get result file.
         /// </summary>
-        /// <param name="matrixFile">File with matrix.</param>
-        /// <param name="vectorFile">File with vector.</param>
+        /// <param name="matrixFileName">File name with matrix.</param>
+        /// <param name="vectorFileName">File name with vector.</param>
         /// <returns>File with result vector.</returns>
         [HttpPost]
-        public async Task<IActionResult> SendMatrixAndVectorToServer(IFormFile matrixFile, IFormFile vectorFile)
+        [DisableRequestSizeLimit]
+        public async Task<IActionResult> SendMatrixAndVectorToServer(string matrixFileName, string vectorFileName)
         {
-            CheckFilesForNull(matrixFile, vectorFile);
-            using var matrixStream = matrixFile.OpenReadStream();
-            byte[] matrixData = new byte[matrixStream.Length];
-            await matrixStream.ReadAsync(matrixData);
-            if (matrixData.Length == 0)
-            {
-                throw new ArgumentException("Файл с матрицей пустой!");
-            }
-
-            using var vectorStream = vectorFile.OpenReadStream();
-            byte[] vectorData = new byte[vectorStream.Length];
-            await vectorStream.ReadAsync(vectorData);
-            if (vectorData.Length == 0)
-            {
-                throw new ArgumentException("Файл с вектором пустой!");
-            }
-
+            ReadData(matrixFileName, vectorFileName, out byte[] matrixData, out byte[] vectorData);
             var data = new FileDataModel
             {
                 MatrixData = matrixData,
@@ -63,16 +55,34 @@ namespace CourseWork.Web.Controllers
             return File(result.VectorData, "application/xml", "VectorX.xml");
         }
 
-        private static void CheckFilesForNull(IFormFile matrixFile, IFormFile vectorFile)
+        private void ReadData(string matrixFileName, string vectorFileName, out byte[] matrixData, out byte[] vectorData)
         {
-            if (matrixFile == null)
+            using var matrixStream = new FileStream(Path.Combine(_pathToFiles, matrixFileName + ".xml"), FileMode.Open, FileAccess.Read);
+            int blockSize = 1;
+            byte[] block = new byte[blockSize];
+            var allBytes = new List<byte>();
+            while (matrixStream.Read(block, 0, blockSize) > 0)
             {
-                throw new ArgumentException("Файл с матрицей не загружен!");
+                allBytes.AddRange(block);
             }
 
-            if (vectorFile == null)
+            matrixData = allBytes.ToArray();
+            if (matrixData.Length == 0)
             {
-                throw new ArgumentException("Файл с вектором не загружен!");
+                throw new ArgumentException("Файл с матрицей пустой!");
+            }
+
+            using var vectorStream = new FileStream(Path.Combine(_pathToFiles, vectorFileName + ".xml"), FileMode.Open, FileAccess.Read);
+            allBytes = new List<byte>();
+            while (vectorStream.Read(block, 0, blockSize) > 0)
+            {
+                allBytes.AddRange(block);
+            }
+
+            vectorData = allBytes.ToArray();
+            if (vectorData.Length == 0)
+            {
+                throw new ArgumentException("Файл с вектором пустой!");
             }
         }
     }

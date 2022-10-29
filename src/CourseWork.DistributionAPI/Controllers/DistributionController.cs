@@ -15,7 +15,7 @@ namespace CourseWork.DistributionAPI.Controllers
     [ApiController]
     public class DistributionController : ControllerBase
     {
-        IComputingHttpClient _httpClient;
+        private readonly IComputingHttpClient _httpClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DistributionController"/> class.
@@ -33,7 +33,8 @@ namespace CourseWork.DistributionAPI.Controllers
         [HttpPost("DistributeFiles")]
         public async Task<FileDataModel> DistributeFiles([FromBody] FileDataModel data)
         {
-            var result = await _httpClient.GetResult(data);
+            var task = _httpClient.GetResult(data);
+            var result = await task;
             return result;
         }
     }

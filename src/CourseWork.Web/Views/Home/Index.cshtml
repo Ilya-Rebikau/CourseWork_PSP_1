@@ -4,10 +4,10 @@
 
 <div class="text-center">
     <form asp-controller="Files" asp-action="SendMatrixAndVectorToServer" method="post" enctype="multipart/form-data">
-        <label>Выберите файл с матрицей: </label>
-        <input type="file" name="matrixFile" /><br>
-        <label>Выберите файл с вектором: </label>
-        <input type="file" name="vectorFile" /><br>
+        <label>Введите имя файла с матрицей: </label>
+        <input type="text" name="matrixFileName" /><br>
+        <label>Введите имя файла с вектором: </label>
+        <input type="text" name="vectorFileName" /><br>
         <input type="submit" value="Отправить" />
     </form>
 </div>

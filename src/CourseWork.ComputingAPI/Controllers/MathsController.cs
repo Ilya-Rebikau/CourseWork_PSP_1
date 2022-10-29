@@ -44,21 +44,19 @@ namespace CourseWork.ComputingAPI.Controllers
         /// <param name="data">Data model with matrix and vector data.</param>
         /// <returns>FileDataModel with result-vector.</returns>
         [HttpPost("GetResult")]
-        public async Task<FileDataModel> GetSlaeResult([FromBody] FileDataModel data)
+        [DisableRequestSizeLimit]
+        public FileDataModel GetSlaeResult([FromBody] FileDataModel data)
         {
-            return await Task.Run(() =>
+            var matrix = _matrixSerializer.ReadObject(data.MatrixData);
+            var vector = _vectorSerializer.ReadObject(data.VectorData);
+            var solver = new CholeskyMethod(matrix, vector);
+            var vectorX = solver.Solve();
+            var result = new FileDataModel
             {
-                var matrix = _matrixSerializer.ReadObject(data.MatrixData);
-                var vector = _vectorSerializer.ReadObject(data.VectorData);
-                var solver = new CholeskyMethod(matrix, vector);
-                var vectorX = solver.Solve();
-                var result = new FileDataModel
-                {
-                    VectorData = _vectorSerializer.WriteObject(vectorX),
-                };
+                VectorData = _vectorSerializer.WriteObject(vectorX),
+            };
 
-                return result;
-            });
+            return result;
         }
     }
 }
