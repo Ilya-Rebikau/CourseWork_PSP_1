@@ -2,7 +2,7 @@
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
 
-namespace CourseWork.DAL.Models
+namespace CourseWork.Models
 {
     using System.Xml.Serialization;
     using Accord.Math;

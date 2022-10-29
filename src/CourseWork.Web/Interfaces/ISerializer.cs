@@ -2,7 +2,7 @@
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
 
-namespace CourseWork.DAL.Interfaces
+namespace CourseWork.Web.Interfaces
 {
     /// <summary>
     /// Helper for work with serialization and deserialization.
@@ -11,17 +11,17 @@ namespace CourseWork.DAL.Interfaces
     public interface ISerializer<T>
     {
         /// <summary>
-        /// Reading object from byte data.
+        /// Reading object from file.
         /// </summary>
-        /// <param name="data">Byte data.</param>
+        /// <param name="path">Path to file.</param>
         /// <returns>Serialized object.</returns>
-        T ReadObject(byte[] data);
+        T ReadObject(string path);
 
         /// <summary>
         /// Write object to bytes array.
         /// </summary>
         /// <param name="myObject">Object for deserialization.</param>
         /// <returns>Array of bytes with object in xml format.</returns>
-        byte[] WriteObject(T myObject);
+        byte[] WriteObjectToByteArray(T myObject);
     }
 }

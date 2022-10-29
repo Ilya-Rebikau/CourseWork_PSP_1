@@ -4,7 +4,9 @@
 
 namespace CourseWork.Web.Configuration
 {
+    using CourseWork.Models;
     using CourseWork.Web.Interfaces;
+    using CourseWork.Web.Services;
     using Microsoft.Extensions.DependencyInjection;
     using RestEase;
 
@@ -22,6 +24,8 @@ namespace CourseWork.Web.Configuration
         public static IServiceCollection AddWebServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllersWithViews();
+            services.AddScoped<ISerializer<Matrix>, MyXmlSerializer<Matrix>>();
+            services.AddScoped<ISerializer<Vector>, MyXmlSerializer<Vector>>();
             services.AddHttpClient();
             services.AddScoped(scope =>
             {

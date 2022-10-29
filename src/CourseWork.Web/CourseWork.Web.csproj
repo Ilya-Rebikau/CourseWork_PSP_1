@@ -27,7 +27,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\" />
     <Folder Include="wwwroot\files\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CourseWork.Models\CourseWork.Models.csproj" />
   </ItemGroup>
 
 </Project>

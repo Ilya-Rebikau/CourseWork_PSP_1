@@ -5,7 +5,7 @@
 namespace CourseWork.DistributionAPI.Controllers
 {
     using CourseWork.DistributionAPI.Interfaces;
-    using CourseWork.DistributionAPI.Models;
+    using CourseWork.Models;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -31,7 +31,7 @@ namespace CourseWork.DistributionAPI.Controllers
         /// <param name="data">Data with matrix and vector.</param>
         /// <returns>Task with result.</returns>
         [HttpPost("DistributeFiles")]
-        public async Task<FileDataModel> DistributeFiles([FromBody] FileDataModel data)
+        public async Task<DataModel> DistributeFiles([FromBody] DataModel data)
         {
             var task = _httpClient.GetResult(data);
             var result = await task;

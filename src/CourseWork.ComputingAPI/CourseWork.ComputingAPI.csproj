@@ -27,6 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CourseWork.DAL\CourseWork.DAL.csproj" />
+    <ProjectReference Include="..\CourseWork.Models\CourseWork.Models.csproj" />
   </ItemGroup>
 </Project>

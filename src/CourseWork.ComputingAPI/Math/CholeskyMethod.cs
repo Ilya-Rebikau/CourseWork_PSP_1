@@ -5,8 +5,8 @@
 namespace CourseWork.ComputingAPI.Math
 {
     using Accord.Math;
-    using Matrix = DAL.Models.Matrix;
-    using Vector = DAL.Models.Vector;
+    using Matrix = CourseWork.Models.Matrix;
+    using Vector = CourseWork.Models.Vector;
 
     /// <summary>
     /// SLAE solver using the Cholesky method.
@@ -25,19 +25,19 @@ namespace CourseWork.ComputingAPI.Math
         }
 
         /// <summary>
-        /// Base matrix A.
+        /// Gets or sets base matrix A.
         /// </summary>
         public Matrix Matrix { get; set; }
 
         /// <summary>
-        /// Base vector B.
+        /// Gets or sets base vector B.
         /// </summary>
         public Vector Vector { get; set; }
 
         /// <summary>
         /// Solve SLAE using the Cholesky method.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Vector result.</returns>
         public Vector Solve()
         {
             var l = new float[Matrix.Size][];

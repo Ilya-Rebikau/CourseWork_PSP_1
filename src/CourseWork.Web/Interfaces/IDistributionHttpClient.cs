@@ -4,7 +4,7 @@
 
 namespace CourseWork.Web.Interfaces
 {
-    using CourseWork.Web.Models;
+    using CourseWork.Models;
     using RestEase;
 
     /// <summary>
@@ -18,6 +18,6 @@ namespace CourseWork.Web.Interfaces
         /// <param name="fileData">File data.</param>
         /// <returns>Task with result bytes array.</returns>
         [Post("Distribution/DistributeFiles")]
-        Task<FileDataModel> SendFileToServer([Body] FileDataModel fileData);
+        Task<DataModel> SendFileToServer([Body] DataModel fileData);
     }
 }

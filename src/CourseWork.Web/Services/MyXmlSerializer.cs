@@ -2,12 +2,12 @@
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
 
-namespace CourseWork.DAL.Services
+namespace CourseWork.Web.Services
 {
-    using System.Net.NetworkInformation;
+    using System;
     using System.Text;
     using System.Xml.Serialization;
-    using CourseWork.DAL.Interfaces;
+    using CourseWork.Web.Interfaces;
 
     /// <summary>
     /// Helper for work with XML serialization and deserialization.
@@ -16,17 +16,16 @@ namespace CourseWork.DAL.Services
     internal class MyXmlSerializer<T> : ISerializer<T>
     {
         /// <inheritdoc/>
-        public T ReadObject(byte[] data)
+        public T ReadObject(string path)
         {
-            string stringData = Encoding.ASCII.GetString(data);
-            using var reader = new StringReader(stringData);
+            using var stream = new FileStream(path, FileMode.Open, FileAccess.Read);
             var xmlSerializer = new XmlSerializer(typeof(T));
-            var myObject = (T)xmlSerializer.Deserialize(reader);
+            var myObject = (T)xmlSerializer.Deserialize(stream);
             return myObject;
         }
 
         /// <inheritdoc/>
-        public byte[] WriteObject(T myObject)
+        public byte[] WriteObjectToByteArray(T myObject)
         {
             using var writer = new StringWriter();
             var xmlSerializer = new XmlSerializer(typeof(T));

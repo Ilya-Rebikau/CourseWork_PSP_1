@@ -4,8 +4,8 @@
 
 namespace CourseWork.Web.Controllers
 {
+    using CourseWork.Models;
     using CourseWork.Web.Interfaces;
-    using CourseWork.Web.Models;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -13,6 +13,16 @@ namespace CourseWork.Web.Controllers
     /// </summary>
     public class FilesController : Controller
     {
+        /// <summary>
+        /// Serializer for matrix.
+        /// </summary>
+        private readonly ISerializer<Matrix> _matrixSerializer;
+
+        /// <summary>
+        /// Serializer for vector.
+        /// </summary>
+        private readonly ISerializer<Vector> _vectorSerializer;
+
         /// <summary>
         /// HttpClient.
         /// </summary>
@@ -28,10 +38,14 @@ namespace CourseWork.Web.Controllers
         /// </summary>
         /// <param name="httpClient">HttpClient.</param>
         /// <param name="environment">IWebHostEnvironment object.</param>
-        public FilesController(IDistributionHttpClient httpClient, IWebHostEnvironment environment)
+        /// <param name="matrixSerializer">Serializer for matrix.</param>
+        /// <param name="vectorSerializer">Serializer for vector.</param>
+        public FilesController(IDistributionHttpClient httpClient, IWebHostEnvironment environment, ISerializer<Matrix> matrixSerializer, ISerializer<Vector> vectorSerializer)
         {
             _httpClient = httpClient;
             _pathToFiles = Path.Combine(environment.WebRootPath, "files");
+            _matrixSerializer = matrixSerializer;
+            _vectorSerializer = vectorSerializer;
         }
 
         /// <summary>
@@ -44,46 +58,16 @@ namespace CourseWork.Web.Controllers
         [DisableRequestSizeLimit]
         public async Task<IActionResult> SendMatrixAndVectorToServer(string matrixFileName, string vectorFileName)
         {
-            ReadData(matrixFileName, vectorFileName, out byte[] matrixData, out byte[] vectorData);
-            var data = new FileDataModel
+            var matrix = _matrixSerializer.ReadObject(Path.Combine(_pathToFiles, matrixFileName + ".xml"));
+            var vector = _vectorSerializer.ReadObject(Path.Combine(_pathToFiles, vectorFileName + ".xml"));
+            var data = new DataModel
             {
-                MatrixData = matrixData,
-                VectorData = vectorData,
+                Matrix = matrix,
+                Vector = vector,
             };
 
             var result = await _httpClient.SendFileToServer(data);
-            return File(result.VectorData, "application/xml", "VectorX.xml");
-        }
-
-        private void ReadData(string matrixFileName, string vectorFileName, out byte[] matrixData, out byte[] vectorData)
-        {
-            using var matrixStream = new FileStream(Path.Combine(_pathToFiles, matrixFileName + ".xml"), FileMode.Open, FileAccess.Read);
-            int blockSize = 1;
-            byte[] block = new byte[blockSize];
-            var allBytes = new List<byte>();
-            while (matrixStream.Read(block, 0, blockSize) > 0)
-            {
-                allBytes.AddRange(block);
-            }
-
-            matrixData = allBytes.ToArray();
-            if (matrixData.Length == 0)
-            {
-                throw new ArgumentException("Файл с матрицей пустой!");
-            }
-
-            using var vectorStream = new FileStream(Path.Combine(_pathToFiles, vectorFileName + ".xml"), FileMode.Open, FileAccess.Read);
-            allBytes = new List<byte>();
-            while (vectorStream.Read(block, 0, blockSize) > 0)
-            {
-                allBytes.AddRange(block);
-            }
-
-            vectorData = allBytes.ToArray();
-            if (vectorData.Length == 0)
-            {
-                throw new ArgumentException("Файл с вектором пустой!");
-            }
+            return File(_vectorSerializer.WriteObjectToByteArray(result.Vector), "application/xml", "VectorX.xml");
         }
     }
 }

@@ -4,7 +4,7 @@
 
 namespace CourseWork.DistributionAPI.Interfaces
 {
-    using CourseWork.DistributionAPI.Models;
+    using CourseWork.Models;
     using RestEase;
 
     /// <summary>
@@ -18,6 +18,6 @@ namespace CourseWork.DistributionAPI.Interfaces
         /// <param name="fileData">File data.</param>
         /// <returns>Task with result.</returns>
         [Post("Maths/GetResult")]
-        Task<FileDataModel> GetResult([Body] FileDataModel fileData);
+        Task<DataModel> GetResult([Body] DataModel fileData);
     }
 }
