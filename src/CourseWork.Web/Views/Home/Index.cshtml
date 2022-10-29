@@ -1,8 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Главная страница";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <form asp-controller="Files" asp-action="SendMatrixAndVectorToServer" method="post" enctype="multipart/form-data">
+        <label>Введите имя файла с матрицей: </label>
+        <input type="text" name="matrixFileName" /><br>
+        <label>Введите имя файла с вектором: </label>
+        <input type="text" name="vectorFileName" /><br>
+        <input type="submit" value="Отправить" />
+    </form>
 </div>

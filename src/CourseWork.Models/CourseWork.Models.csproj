@@ -1,12 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-	<ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="stylecop.json" />
+    <None Remove="stylecop.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RestEase" Version="1.5.7" />
+    <PackageReference Include="Accord.Math" Version="3.8.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.47.0.55603">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,16 +23,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="wwwroot\files\" />
+    <EditorConfigFiles Remove="D:\Учёба\7 семестр\ПСП\Курсовая работа\CourseWork\.editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CourseWork.Models\CourseWork.Models.csproj" />
+    <None Include="D:\Учёба\7 семестр\ПСП\Курсовая работа\CourseWork\.editorconfig" />
   </ItemGroup>
 
 </Project>

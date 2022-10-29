@@ -3,11 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWork.API", "src\CourseWork.API\CourseWork.API.csproj", "{FC6DB267-4398-472D-9CFE-56E743AD7649}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseWork.Web", "src\CourseWork.Web\CourseWork.Web.csproj", "{3A47937B-981A-4C58-89E3-52BA125207AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWork.DAL", "src\CourseWork.DAL\CourseWork.DAL.csproj", "{CB0AF749-A612-4FDA-9BC5-F6702513A76E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38861868-C297-4393-BE8B-D42AC290E8CB}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWork.Web", "src\CourseWork.Web\CourseWork.Web.csproj", "{3A47937B-981A-4C58-89E3-52BA125207AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseWork.DistributionAPI", "src\CourseWork.DistributionAPI\CourseWork.DistributionAPI.csproj", "{74719D83-2136-4C42-A149-733D200785B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseWork.ComputingAPI", "src\CourseWork.ComputingAPI\CourseWork.ComputingAPI.csproj", "{7BDE2508-82F3-47AC-8EB6-0C8E6F778FA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseWork.Models", "src\CourseWork.Models\CourseWork.Models.csproj", "{B7923A3F-FB9A-41F5-82C8-DB2A3BA5C2B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +22,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FC6DB267-4398-472D-9CFE-56E743AD7649}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC6DB267-4398-472D-9CFE-56E743AD7649}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC6DB267-4398-472D-9CFE-56E743AD7649}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC6DB267-4398-472D-9CFE-56E743AD7649}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CB0AF749-A612-4FDA-9BC5-F6702513A76E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CB0AF749-A612-4FDA-9BC5-F6702513A76E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CB0AF749-A612-4FDA-9BC5-F6702513A76E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CB0AF749-A612-4FDA-9BC5-F6702513A76E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A47937B-981A-4C58-89E3-52BA125207AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A47937B-981A-4C58-89E3-52BA125207AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A47937B-981A-4C58-89E3-52BA125207AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A47937B-981A-4C58-89E3-52BA125207AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74719D83-2136-4C42-A149-733D200785B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74719D83-2136-4C42-A149-733D200785B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74719D83-2136-4C42-A149-733D200785B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74719D83-2136-4C42-A149-733D200785B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BDE2508-82F3-47AC-8EB6-0C8E6F778FA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BDE2508-82F3-47AC-8EB6-0C8E6F778FA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BDE2508-82F3-47AC-8EB6-0C8E6F778FA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BDE2508-82F3-47AC-8EB6-0C8E6F778FA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7923A3F-FB9A-41F5-82C8-DB2A3BA5C2B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7923A3F-FB9A-41F5-82C8-DB2A3BA5C2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7923A3F-FB9A-41F5-82C8-DB2A3BA5C2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7923A3F-FB9A-41F5-82C8-DB2A3BA5C2B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
