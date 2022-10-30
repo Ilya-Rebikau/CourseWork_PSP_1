@@ -4,6 +4,7 @@
 
 namespace CourseWork.ComputingAPI.Controllers
 {
+    using CourseWork.ComputingAPI.Attributes;
     using CourseWork.ComputingAPI.Math;
     using CourseWork.Models;
     using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace CourseWork.ComputingAPI.Controllers
     /// </summary>
     [Route("[controller]")]
     [ApiController]
+    [ExceptionFilter]
     public class MathsController : ControllerBase
     {
         private static bool _isWorking = false;

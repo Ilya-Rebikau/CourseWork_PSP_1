@@ -4,6 +4,7 @@
 
 namespace CourseWork.DistributionAPI.Controllers
 {
+    using CourseWork.DistributionAPI.Attributes;
     using CourseWork.DistributionAPI.Interfaces;
     using CourseWork.Models;
     using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace CourseWork.DistributionAPI.Controllers
     /// </summary>
     [Route("[controller]")]
     [ApiController]
+    [ExceptionFilter]
     public class DistributionController : ControllerBase
     {
         /// <summary>
@@ -56,27 +58,61 @@ namespace CourseWork.DistributionAPI.Controllers
         {
             while (true)
             {
-                var isFirstWorking = await _firstHttpClient.CheckForWork();
-                var isSecondWorking = await _secondHttpClient.CheckForWork();
-                var isThirdWorking = await _thirdHttpClient.CheckForWork();
+                int serversNotWorking = 0;
+                bool isFirstWorking = false, isSecondWorking = false, isThirdWorking = false;
+                try
+                {
+                    isFirstWorking = await _firstHttpClient.CheckForWork();
+                }
+                catch
+                {
+                    serversNotWorking++;
+                }
+
+                try
+                {
+                    isSecondWorking = await _secondHttpClient.CheckForWork();
+                }
+                catch
+                {
+                    serversNotWorking++;
+                }
+
+                try
+                {
+                    isThirdWorking = await _thirdHttpClient.CheckForWork();
+                }
+                catch
+                {
+                    serversNotWorking++;
+                }
+
+                if (serversNotWorking == 3)
+                {
+                    throw new HttpRequestException("Все вычислительные серверы отключены!");
+                }
+
                 if (!isFirstWorking)
                 {
-                    Console.WriteLine("First-------------------------------------------------------------------------");
+                    Console.WriteLine("____________________________________________________________\nFirst server started work.");
                     var result = await _firstHttpClient.GetResult(data);
+                    Console.WriteLine("First server done.\n____________________________________________________________");
                     return result;
                 }
 
                 if (!isSecondWorking)
                 {
-                    Console.WriteLine("Second-------------------------------------------------------------------------");
+                    Console.WriteLine("____________________________________________________________\nSecond server started work.");
                     var result = await _secondHttpClient.GetResult(data);
+                    Console.WriteLine("Second server done.\n____________________________________________________________");
                     return result;
                 }
 
                 if (!isThirdWorking)
                 {
-                    Console.WriteLine("Third-------------------------------------------------------------------------");
+                    Console.WriteLine("____________________________________________________________\nThird server started work.");
                     var result = await _thirdHttpClient.GetResult(data);
+                    Console.WriteLine("Third server done.\n____________________________________________________________");
                     return result;
                 }
             }

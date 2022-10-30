@@ -4,11 +4,13 @@
 
 namespace CourseWork.Web.Controllers
 {
+    using CourseWork.Web.Attributes;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Main controller for home page.
     /// </summary>
+    [ExceptionFilter]
     public class HomeController : Controller
     {
         /// <summary>
