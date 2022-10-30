@@ -5,12 +5,14 @@
 namespace CourseWork.Web.Controllers
 {
     using CourseWork.Models;
+    using CourseWork.Web.Attributes;
     using CourseWork.Web.Interfaces;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Working with files uploading and downloading.
     /// </summary>
+    [ExceptionFilter]
     public class FilesController : Controller
     {
         /// <summary>
