@@ -41,5 +41,44 @@ namespace CourseWork.Models
         /// </summary>
         [XmlElement]
         public int Size { get; set; }
+
+        /// <summary>
+        /// Gets or sets presicion for comparing vectors.
+        /// </summary>
+        [XmlIgnore]
+        public float Precision { get; set; } = 0.005F;
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            var vector = (Vector)obj;
+            if (vector.Size != Size)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < Size; i++)
+            {
+                var firstValue = vector.Numbers[i];
+                var secondValue = Numbers[i];
+                if (Math.Abs(firstValue - secondValue) > Precision)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return Size.GetHashCode();
+        }
     }
 }

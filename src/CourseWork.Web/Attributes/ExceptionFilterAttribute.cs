@@ -4,7 +4,6 @@
 
 namespace CourseWork.Web.Attributes
 {
-    using System.Net.Sockets;
     using CourseWork.Models;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;

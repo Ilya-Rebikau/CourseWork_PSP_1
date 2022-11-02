@@ -4,7 +4,6 @@
 
 namespace CourseWork.Web.Services
 {
-    using System;
     using System.Text;
     using System.Xml.Serialization;
     using CourseWork.Web.Interfaces;

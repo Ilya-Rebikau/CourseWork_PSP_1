@@ -1,6 +1,9 @@
 ﻿// <copyright file="ISerializer.cs" company="IlyaRebikau">
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("CourseWork.UnitTests")]
 
 namespace CourseWork.Web.Interfaces
 {
