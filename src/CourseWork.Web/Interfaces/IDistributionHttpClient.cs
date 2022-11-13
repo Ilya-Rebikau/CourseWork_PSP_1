@@ -16,7 +16,7 @@ namespace CourseWork.Web.Interfaces
         /// Sending file data to API.
         /// </summary>
         /// <param name="fileData">File data.</param>
-        /// <returns>Task with result bytes array.</returns>
+        /// <returns>Task with DataModel and vector-result in it.</returns>
         [Post("Distribution/DistributeFiles")]
         Task<DataModel> SendFileToServer([Body] DataModel fileData);
     }
