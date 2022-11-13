@@ -11,7 +11,7 @@ namespace CourseWork.DistributionAPI.Attributes
     /// Exception filter attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class ExceptionFilterAttribute : Attribute, IExceptionFilter
+    internal class ExceptionFilterAttribute : Attribute, IExceptionFilter
     {
         /// <inheritdoc/>
         public void OnException(ExceptionContext context)

@@ -8,6 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38861868-C297-4393-BE8B-D42AC290E8CB}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Run.bat = Run.bat
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseWork.DistributionAPI", "src\CourseWork.DistributionAPI\CourseWork.DistributionAPI.csproj", "{74719D83-2136-4C42-A149-733D200785B7}"

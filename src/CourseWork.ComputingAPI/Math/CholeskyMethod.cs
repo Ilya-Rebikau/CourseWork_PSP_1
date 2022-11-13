@@ -2,6 +2,10 @@
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
 
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("CourseWork.UnitTests")]
+
 namespace CourseWork.ComputingAPI.Math
 {
     using Accord.Math;
@@ -11,7 +15,7 @@ namespace CourseWork.ComputingAPI.Math
     /// <summary>
     /// SLAE solver using the Cholesky method.
     /// </summary>
-    public class CholeskyMethod
+    internal class CholeskyMethod
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CholeskyMethod"/> class.
