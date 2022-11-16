@@ -5,7 +5,7 @@
 using CourseWork.DistributionAPI.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAPIServices(builder.Configuration);
+builder.Services.AddAPIServices();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

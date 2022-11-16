@@ -18,34 +18,17 @@ namespace CourseWork.DistributionAPI.Controllers
     public class DistributionController : ControllerBase
     {
         /// <summary>
-        /// HttpClient for first server.
+        /// Http clients for computing servers.
         /// </summary>
-        private readonly IFirstComputingHttpClient _firstHttpClient;
-
-        /// <summary>
-        /// HttpClient for second server.
-        /// </summary>
-        private readonly ISecondComputingHttpClient _secondHttpClient;
-
-        /// <summary>
-        /// HttpClient for third server.
-        /// </summary>
-        private readonly IThirdComputingHttpClient _thirdHttpClient;
+        private readonly List<IComputingHttpClient> _httpClients;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DistributionController"/> class.
         /// </summary>
-        /// <param name="firstHttpClient">HttpClient for first server.</param>
-        /// <param name="secondHttpClient">HttpClient for second server.</param>
-        /// <param name="thirdHttpClient">HttpClient for third server.</param>
-        public DistributionController(
-            IFirstComputingHttpClient firstHttpClient,
-            ISecondComputingHttpClient secondHttpClient,
-            IThirdComputingHttpClient thirdHttpClient)
+        /// <param name="factory">Factory to build list of http clients for computing servers.</param>
+        public DistributionController(IFactory<IComputingHttpClient> factory)
         {
-            _firstHttpClient = firstHttpClient;
-            _secondHttpClient = secondHttpClient;
-            _thirdHttpClient = thirdHttpClient;
+            _httpClients = factory.CreateList();
         }
 
         /// <summary>
@@ -59,61 +42,22 @@ namespace CourseWork.DistributionAPI.Controllers
             while (true)
             {
                 int serversNotWorking = 0;
-                bool isFirstWorking = false, isSecondWorking = false, isThirdWorking = false;
-                try
+                for (int i = 0; i < _httpClients.Count; i++)
                 {
-                    isFirstWorking = await _firstHttpClient.CheckForWork();
-                }
-                catch
-                {
-                    serversNotWorking++;
-                }
-
-                try
-                {
-                    isSecondWorking = await _secondHttpClient.CheckForWork();
-                }
-                catch
-                {
-                    serversNotWorking++;
-                }
-
-                try
-                {
-                    isThirdWorking = await _thirdHttpClient.CheckForWork();
-                }
-                catch
-                {
-                    serversNotWorking++;
-                }
-
-                if (serversNotWorking == 3)
-                {
-                    throw new HttpRequestException("Все вычислительные серверы отключены!");
-                }
-
-                if (!isFirstWorking)
-                {
-                    Console.WriteLine("____________________________________________________________\nFirst server started work.");
-                    var result = await _firstHttpClient.GetResult(data);
-                    Console.WriteLine("First server done.\n____________________________________________________________");
-                    return result;
-                }
-
-                if (!isSecondWorking)
-                {
-                    Console.WriteLine("____________________________________________________________\nSecond server started work.");
-                    var result = await _secondHttpClient.GetResult(data);
-                    Console.WriteLine("Second server done.\n____________________________________________________________");
-                    return result;
-                }
-
-                if (!isThirdWorking)
-                {
-                    Console.WriteLine("____________________________________________________________\nThird server started work.");
-                    var result = await _thirdHttpClient.GetResult(data);
-                    Console.WriteLine("Third server done.\n____________________________________________________________");
-                    return result;
+                    try
+                    {
+                        if (!await _httpClients[i].CheckForWork())
+                        {
+                            Console.WriteLine($"____________________________________________________________\n{i + 1}th server started work.\n____________________________________________________________");
+                            var result = await _httpClients[i].GetResult(data);
+                            Console.WriteLine($"____________________________________________________________\n{i + 1}th server done.\n____________________________________________________________");
+                            return result;
+                        }
+                    }
+                    catch
+                    {
+                        serversNotWorking++;
+                    }
                 }
             }
         }

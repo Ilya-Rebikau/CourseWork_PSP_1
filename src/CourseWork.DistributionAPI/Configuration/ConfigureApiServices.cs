@@ -5,6 +5,7 @@
 namespace CourseWork.DistributionAPI.Configuration
 {
     using CourseWork.DistributionAPI.Interfaces;
+    using CourseWork.DistributionAPI.Services;
     using Microsoft.Extensions.DependencyInjection;
     using RestEase;
 
@@ -17,29 +18,14 @@ namespace CourseWork.DistributionAPI.Configuration
         /// Extension method for IServiceCollection to add API services.
         /// </summary>
         /// <param name="services">Services.</param>
-        /// <param name="configuration">Configuration.</param>
         /// <returns>Added services.</returns>
-        public static IServiceCollection AddAPIServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAPIServices(this IServiceCollection services)
         {
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddControllers();
             services.AddHttpClient();
-            services.AddScoped(scope =>
-            {
-                var baseUrl = configuration["FirstComputingApiAddress"];
-                return RestClient.For<IFirstComputingHttpClient>(baseUrl);
-            });
-            services.AddScoped(scope =>
-            {
-                var baseUrl = configuration["SecondComputingApiAddress"];
-                return RestClient.For<ISecondComputingHttpClient>(baseUrl);
-            });
-            services.AddScoped(scope =>
-            {
-                var baseUrl = configuration["ThirdComputingApiAddress"];
-                return RestClient.For<IThirdComputingHttpClient>(baseUrl);
-            });
+            services.AddSingleton<IFactory<IComputingHttpClient>, HttpClientsFactory>();
             return services;
         }
     }
