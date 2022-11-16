@@ -10,7 +10,7 @@ namespace CourseWork.DistributionAPI.Services
     /// <summary>
     /// Factory for http clients.
     /// </summary>
-    public class HttpClientsFactory : IFactory<IComputingHttpClient>
+    internal class HttpClientsFactory : IFactory<IComputingHttpClient>
     {
         /// <summary>
         /// Configuration object.
