@@ -47,10 +47,10 @@ namespace CourseWork.UnitTests
             var matrix = GetTestMatrix("A1.xml");
             var vector = GetTestVector("B1.xml");
             var expectedVectorX = GetTestVector("X1.xml");
-            var choleskyMethod = new CholeskyMethod(matrix, vector);
+            var choleskyMethod = new CholeskyMethodSolver();
 
             // Act
-            var actualVectorX = choleskyMethod.Solve();
+            var actualVectorX = choleskyMethod.Solve(matrix, vector);
 
             // Assert
             Assert.That(actualVectorX, Is.EqualTo(expectedVectorX));
@@ -66,10 +66,10 @@ namespace CourseWork.UnitTests
             var matrix = GetTestMatrix("A2.xml");
             var vector = GetTestVector("B2.xml");
             var expectedVectorX = GetTestVector("X2.xml");
-            var choleskyMethod = new CholeskyMethod(matrix, vector);
+            var choleskyMethod = new CholeskyMethodSolver();
 
             // Act
-            var actualVectorX = choleskyMethod.Solve();
+            var actualVectorX = choleskyMethod.Solve(matrix, vector);
 
             // Assert
             Assert.That(actualVectorX, Is.EqualTo(expectedVectorX));
@@ -85,10 +85,10 @@ namespace CourseWork.UnitTests
             var matrix = GetTestMatrix("A3.xml");
             var vector = GetTestVector("B3.xml");
             var expectedVectorX = GetTestVector("X3.xml");
-            var choleskyMethod = new CholeskyMethod(matrix, vector);
+            var choleskyMethod = new CholeskyMethodSolver();
 
             // Act
-            var actualVectorX = choleskyMethod.Solve();
+            var actualVectorX = choleskyMethod.Solve(matrix, vector);
 
             // Assert
             Assert.That(actualVectorX, Is.EqualTo(expectedVectorX));
@@ -103,12 +103,12 @@ namespace CourseWork.UnitTests
             // Arrange
             var matrix = GetTestMatrix("A1.xml");
             var vector = GetTestVector("B1.xml");
-            var seidelMethod = new SeidelMethod(matrix, vector);
-            var choleskyMethod = new CholeskyMethod(matrix, vector);
+            var seidelMethod = new SeidelMethod();
+            var choleskyMethod = new CholeskyMethodSolver();
 
             // Act
-            var seidelVector = seidelMethod.Solve();
-            var choleskyVector = choleskyMethod.Solve();
+            var seidelVector = seidelMethod.Solve(matrix, vector);
+            var choleskyVector = choleskyMethod.Solve(matrix, vector);
 
             // Assert
             Assert.That(seidelVector, Is.EqualTo(choleskyVector));
@@ -123,12 +123,12 @@ namespace CourseWork.UnitTests
             // Arrange
             var matrix = GetTestMatrix("A2.xml");
             var vector = GetTestVector("B2.xml");
-            var seidelMethod = new SeidelMethod(matrix, vector);
-            var choleskyMethod = new CholeskyMethod(matrix, vector);
+            var seidelMethod = new SeidelMethod();
+            var choleskyMethod = new CholeskyMethodSolver();
 
             // Act
-            var seidelVector = seidelMethod.Solve();
-            var choleskyVector = choleskyMethod.Solve();
+            var seidelVector = seidelMethod.Solve(matrix, vector);
+            var choleskyVector = choleskyMethod.Solve(matrix, vector);
 
             // Assert
             Assert.That(seidelVector, Is.EqualTo(choleskyVector));

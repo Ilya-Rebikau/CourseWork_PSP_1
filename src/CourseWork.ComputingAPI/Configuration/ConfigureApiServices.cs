@@ -4,6 +4,8 @@
 
 namespace CourseWork.ComputingAPI.Configuration
 {
+    using CourseWork.ComputingAPI.Interfaces;
+    using CourseWork.ComputingAPI.Math;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
@@ -21,6 +23,7 @@ namespace CourseWork.ComputingAPI.Configuration
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddControllers();
+            services.AddScoped<ISolver, CholeskyMethodSolver>();
             return services;
         }
     }

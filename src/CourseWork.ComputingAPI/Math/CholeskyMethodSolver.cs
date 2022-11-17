@@ -1,4 +1,4 @@
-﻿// <copyright file="CholeskyMethod.cs" company="IlyaRebikau">
+﻿// <copyright file="CholeskyMethodSolver.cs" company="IlyaRebikau">
 // Copyright (c) IlyaRebikau. All rights reserved.
 // </copyright>
 
@@ -9,47 +9,24 @@ using System.Runtime.CompilerServices;
 namespace CourseWork.ComputingAPI.Math
 {
     using Accord.Math;
+    using CourseWork.ComputingAPI.Interfaces;
     using Matrix = CourseWork.Models.Matrix;
     using Vector = CourseWork.Models.Vector;
 
     /// <summary>
     /// SLAE solver using the Cholesky method.
     /// </summary>
-    internal class CholeskyMethod
+    internal class CholeskyMethodSolver : ISolver
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CholeskyMethod"/> class.
-        /// </summary>
-        /// <param name="matrix">Base matrix A.</param>
-        /// <param name="vector">Base vector B.</param>
-        public CholeskyMethod(Matrix matrix, Vector vector)
+        /// <inheritdoc/>
+        public Vector Solve(Matrix matrix, Vector vector)
         {
-            Matrix = matrix;
-            Vector = vector;
-        }
-
-        /// <summary>
-        /// Gets or sets base matrix A.
-        /// </summary>
-        public Matrix Matrix { get; set; }
-
-        /// <summary>
-        /// Gets or sets base vector B.
-        /// </summary>
-        public Vector Vector { get; set; }
-
-        /// <summary>
-        /// Solve SLAE using the Cholesky method.
-        /// </summary>
-        /// <returns>Vector result.</returns>
-        public Vector Solve()
-        {
-            var l = new float[Matrix.Size][];
-            var y = new float[Matrix.Size];
-            var x = new float[Matrix.Size];
+            var l = new float[matrix.Size][];
+            var y = new float[matrix.Size];
+            var x = new float[matrix.Size];
             for (int i = 0; i < l.GetUpperBound(0) + 1; i++)
             {
-                l[i] = new float[Matrix.Size];
+                l[i] = new float[matrix.Size];
                 float temp;
                 for (int j = 0; j < i; j++)
                 {
@@ -59,10 +36,10 @@ namespace CourseWork.ComputingAPI.Math
                         temp += l[i][k] * l[j][k];
                     }
 
-                    l[i][j] = (Matrix.Numbers[i][j] - temp) / l[j][j];
+                    l[i][j] = (matrix.Numbers[i][j] - temp) / l[j][j];
                 }
 
-                temp = Matrix.Numbers[i][i];
+                temp = matrix.Numbers[i][i];
                 for (int k = 0; k < i; k++)
                 {
                     temp -= l[i][k] * l[i][k];
@@ -80,7 +57,7 @@ namespace CourseWork.ComputingAPI.Math
                     summa += l[i][j] * y[j];
                 }
 
-                y[i] = (Vector.Numbers[i] - summa) / l[i][i];
+                y[i] = (vector.Numbers[i] - summa) / l[i][i];
             }
 
             for (int i = lt.GetUpperBound(0); i >= 0; i--)

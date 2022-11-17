@@ -29,4 +29,8 @@
   <ItemGroup>
     <ProjectReference Include="..\CourseWork.Models\CourseWork.Models.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Math\" />
+  </ItemGroup>
 </Project>

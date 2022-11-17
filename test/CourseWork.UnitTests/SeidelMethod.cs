@@ -1,45 +1,36 @@
-﻿using CourseWork.Models;
+﻿using CourseWork.ComputingAPI.Interfaces;
+using CourseWork.Models;
 
 namespace CourseWork.UnitTests
 {
-    internal class SeidelMethod
+    internal class SeidelMethod : ISolver
     {
-        public SeidelMethod(Matrix matrix, Vector vector)
-        {
-            Matrix = matrix;
-            Vector = vector;
-        }
-
-        public Matrix Matrix { get; set; }
-
-        public Vector Vector { get; set; }
-
         public float Precision { get; set; } = 0.00001F;
 
-        public Vector Solve()
+        public Vector Solve(Matrix matrix, Vector vector)
         {
-            var x = new float[Matrix.Size];
-            var xNew = new float[Matrix.Size];
+            var x = new float[matrix.Size];
+            var xNew = new float[matrix.Size];
             bool converge = false;
             while (!converge)
             {
                 var loss = 0.0F;
                 Array.Copy(x, xNew, x.Length);
-                for (var i = 0; i < Matrix.Size; i++)
+                for (var i = 0; i < matrix.Size; i++)
                 {
                     var sum1 = 0.0F;
                     var sum2 = 0.0F;
                     for (var j = 0; j < i; j++)
                     {
-                        sum1 += Matrix.Numbers[i][j] * xNew[j];
+                        sum1 += matrix.Numbers[i][j] * xNew[j];
                     }
 
-                    for (var j = i + 1; j < Matrix.Size; j++)
+                    for (var j = i + 1; j < matrix.Size; j++)
                     {
-                        sum2 += Matrix.Numbers[i][j] * x[j];
+                        sum2 += matrix.Numbers[i][j] * x[j];
                     }
                         
-                    xNew[i] = (Vector.Numbers[i] - sum1 - sum2) / Matrix.Numbers[i][i];
+                    xNew[i] = (vector.Numbers[i] - sum1 - sum2) / matrix.Numbers[i][i];
                     loss += (float)Math.Pow(xNew[i] - x[i], 2);
                 }
 

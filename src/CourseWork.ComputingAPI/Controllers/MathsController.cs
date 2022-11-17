@@ -5,7 +5,7 @@
 namespace CourseWork.ComputingAPI.Controllers
 {
     using CourseWork.ComputingAPI.Attributes;
-    using CourseWork.ComputingAPI.Math;
+    using CourseWork.ComputingAPI.Interfaces;
     using CourseWork.Models;
     using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +17,24 @@ namespace CourseWork.ComputingAPI.Controllers
     [ExceptionFilter]
     public class MathsController : ControllerBase
     {
+        /// <summary>
+        /// Is server working now or not.
+        /// </summary>
         private static bool _isWorking = false;
+
+        /// <summary>
+        /// Solver for SLAE.
+        /// </summary>
+        private readonly ISolver _solver;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MathsController"/> class.
+        /// </summary>
+        /// <param name="solver">Solver for SLAE.</param>
+        public MathsController(ISolver solver)
+        {
+            _solver = solver;
+        }
 
         /// <summary>
         /// Gets result of slae solving it via the Cholesky method.
@@ -29,8 +46,7 @@ namespace CourseWork.ComputingAPI.Controllers
         public DataModel GetSlaeResult([FromBody] DataModel data)
         {
             _isWorking = true;
-            var solver = new CholeskyMethod(data.Matrix, data.Vector);
-            var vectorX = solver.Solve();
+            var vectorX = _solver.Solve(data.Matrix, data.Vector);
             var result = new DataModel
             {
                 Vector = vectorX,
