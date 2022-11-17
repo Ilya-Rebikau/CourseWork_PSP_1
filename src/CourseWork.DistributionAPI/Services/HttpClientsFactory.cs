@@ -29,7 +29,7 @@ namespace CourseWork.DistributionAPI.Services
         /// <summary>
         /// Creates list of http client.
         /// </summary>
-        /// <returns>Http client.</returns>
+        /// <returns>List of http clients.</returns>
         public List<IComputingHttpClient> CreateList()
         {
             var servers = new List<IComputingHttpClient>();
