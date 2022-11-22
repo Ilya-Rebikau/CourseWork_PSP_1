@@ -38,6 +38,80 @@ namespace CourseWork.UnitTests
         }
 
         /// <summary>
+        /// Compare results from the Cholesky method and the Seidel method for the first matrix A and vector B.
+        /// </summary>
+        [Test]
+        public void CompareResult_WithSeidelMethod_First()
+        {
+            // Arrange
+            var matrix = GetTestMatrix("A1.xml");
+            var vector = GetTestVector("B1.xml");
+            var seidelMethod = new SeidelMethod();
+
+            // Act
+            void test() => seidelMethod.Solve(matrix, vector);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        /// <summary>
+        /// Compare results from the Cholesky method and the Seidel method for the second matrix A and vector B.
+        /// </summary>
+        [Test]
+        public void CompareResult_WithSeidelMethod_Second()
+        {
+            // Arrange
+            var matrix = GetTestMatrix("A2.xml");
+            var vector = GetTestVector("B2.xml");
+            var seidelMethod = new SeidelMethod();
+
+            // Act
+            void test() => seidelMethod.Solve(matrix, vector);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        /// <summary>
+        /// Compare results from the Cholesky method and the Seidel method for the second matrix A and vector B.
+        /// </summary>
+        [Test]
+        public void CompareResult_WithSeidelMethod_Third()
+        {
+            // Arrange
+            var matrix = GetTestMatrix("A3.xml");
+            var vector = GetTestVector("B3.xml");
+            var seidelMethod = new SeidelMethod();
+
+            // Act
+            void test() => seidelMethod.Solve(matrix, vector);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        /// <summary>
+        /// Load test for big matrix.
+        /// </summary>
+        [Test]
+        public void LoadTest()
+        {
+            // Arrange and Act
+            static void testAction()
+            {
+                var matrix = new Matrix(new float[int.MaxValue][]);
+                for (int i = 0; i < int.MaxValue; i++)
+                {
+                    matrix.Numbers[i] = new float[int.MaxValue];
+                }
+            }
+
+            // Assert
+            Assert.Throws<OutOfMemoryException>(testAction);
+        }
+
+        /// <summary>
         /// Compare results from the Cholesky method and file with vector X for the first matrix A and vector B.
         /// </summary>
         [Test]
@@ -92,66 +166,6 @@ namespace CourseWork.UnitTests
 
             // Assert
             Assert.That(actualVectorX, Is.EqualTo(expectedVectorX));
-        }
-
-        /// <summary>
-        /// Compare results from the Cholesky method and the Seidel method for the first matrix A and vector B.
-        /// </summary>
-        [Test]
-        public void CompareResult_WithSeidelMethod_First()
-        {
-            // Arrange
-            var matrix = GetTestMatrix("A1.xml");
-            var vector = GetTestVector("B1.xml");
-            var seidelMethod = new SeidelMethod();
-            var choleskyMethod = new CholeskyMethodSolver();
-
-            // Act
-            var seidelVector = seidelMethod.Solve(matrix, vector);
-            var choleskyVector = choleskyMethod.Solve(matrix, vector);
-
-            // Assert
-            Assert.That(seidelVector, Is.EqualTo(choleskyVector));
-        }
-
-        /// <summary>
-        /// Compare results from the Cholesky method and the Seidel method for the second matrix A and vector B.
-        /// </summary>
-        [Test]
-        public void CompareResult_WithSeidelMethod_Second()
-        {
-            // Arrange
-            var matrix = GetTestMatrix("A2.xml");
-            var vector = GetTestVector("B2.xml");
-            var seidelMethod = new SeidelMethod();
-            var choleskyMethod = new CholeskyMethodSolver();
-
-            // Act
-            var seidelVector = seidelMethod.Solve(matrix, vector);
-            var choleskyVector = choleskyMethod.Solve(matrix, vector);
-
-            // Assert
-            Assert.That(seidelVector, Is.EqualTo(choleskyVector));
-        }
-
-        /// <summary>
-        /// Load test for big matrix.
-        /// </summary>
-        [Test]
-        public void LoadTest()
-        {
-            // Arrange and Act
-            static void testAction()
-            {
-                var matrix = new Matrix(new float[int.MaxValue][]);
-                for (int i = 0; i < int.MaxValue; i++)
-                {
-                    matrix.Numbers[i] = new float[int.MaxValue];
-                }
-            }
-
-            // Assert
-            Assert.Throws<OutOfMemoryException>(testAction);
         }
     }
 }

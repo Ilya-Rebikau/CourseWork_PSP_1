@@ -9,6 +9,11 @@ namespace CourseWork.UnitTests
 
         public Vector Solve(Matrix matrix, Vector vector)
         {
+            if (!DiagonalDominanceCheck(matrix.Numbers))
+            {
+                throw new InvalidOperationException("Dominance of diagonals is not fulfilled");
+            }
+
             var x = new float[matrix.Size];
             var xNew = new float[matrix.Size];
             bool converge = false;
@@ -39,6 +44,20 @@ namespace CourseWork.UnitTests
             }
 
             return new Vector(x);
+        }
+
+        private static bool DiagonalDominanceCheck(float[][] matrix)
+        {
+            for (var i = 0; i < matrix.GetLength(0); i++)
+            {
+                var sum = 0.0d;
+                for (var j = 0; j < matrix.GetLength(0); j++)
+                    sum += Math.Abs(matrix[i][j]);
+                sum -= Math.Abs(matrix[i][i]);
+                if (sum > matrix[i][i])
+                    return false;
+            }
+            return true;
         }
     }
 }
