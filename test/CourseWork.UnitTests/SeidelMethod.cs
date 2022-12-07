@@ -5,7 +5,7 @@ namespace CourseWork.UnitTests
 {
     internal class SeidelMethod : ISolver
     {
-        public float Precision { get; set; } = 0.00001F;
+        public float Precision { get; set; } = 0.0000000001F;
 
         public Vector Solve(Matrix matrix, Vector vector)
         {

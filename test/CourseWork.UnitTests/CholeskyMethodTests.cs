@@ -38,6 +38,114 @@ namespace CourseWork.UnitTests
         }
 
         /// <summary>
+        /// Showing time spended for cholesky method with SLAE size 1875.
+        /// </summary>
+        [Test]
+        public void TestTimeForCholeskyMethod_1875()
+        {
+            // Arrange
+            var matrix = GetTestMatrix("A5.xml");
+            var vector = GetTestVector("B5.xml");
+
+            // Act
+            var choleskyMethod = new CholeskyMethodSolver();
+            void test() => choleskyMethod.Solve(matrix, vector);
+
+            //Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        /// <summary>
+        /// Showing time spended for seidel method with SLAE size 1875.
+        /// </summary>
+        [Test]
+        public void TestTimeForSeidelMethod_1875()
+        {
+            // Arrange
+            var matrix = GetTestMatrix("A5.xml");
+            var vector = GetTestVector("B5.xml");
+
+            // Act
+            var seidelMethod = new SeidelMethod();
+            void test() => seidelMethod.Solve(matrix, vector);
+
+            //Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        /// <summary>
+        /// Showing time spended for cholesky method with SLAE size 675.
+        /// </summary>
+        [Test]
+        public void TestTimeForCholeskyMethod_675()
+        {
+            // Arrange
+            var matrix = GetTestMatrix("A4.xml");
+            var vector = GetTestVector("B4.xml");
+
+            // Act
+            var choleskyMethod = new CholeskyMethodSolver();
+            void test() => choleskyMethod.Solve(matrix, vector);
+
+            //Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        /// <summary>
+        /// Showing time spended for seidel method with SLAE size 675.
+        /// </summary>
+        [Test]
+        public void TestTimeForSeidelMethod_675()
+        {
+            // Arrange
+            var matrix = GetTestMatrix("A4.xml");
+            var vector = GetTestVector("B4.xml");
+
+            // Act
+            var seidelMethod = new SeidelMethod();
+            void test() => seidelMethod.Solve(matrix, vector);
+
+            //Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        /// <summary>
+        /// Showing time spended for cholesky method with SLAE size 100.
+        /// </summary>
+        [Test]
+        public void TestTimeForCholeskyMethod_100()
+        {
+            // Arrange
+            var matrix = GetTestMatrix("A0.xml");
+            var vector = GetTestVector("B0.xml");
+
+            // Act
+            var choleskyMethod = new CholeskyMethodSolver();
+            void test() => choleskyMethod.Solve(matrix, vector);
+
+            //Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        /// <summary>
+        /// Showing time spended for seidel method with SLAE size 100.
+        /// </summary>
+        [Test]
+        public void TestTimeForSeidelMethod_100()
+        {
+            // Arrange
+            var matrix = GetTestMatrix("A0.xml");
+            var vector = GetTestVector("B0.xml");
+
+            // Act
+            var seidelMethod = new SeidelMethod();
+            void test() => seidelMethod.Solve(matrix, vector);
+
+            //Assert
+            Assert.DoesNotThrow(test);
+        }
+
+        /// <summary>
         /// Compare results from the Cholesky method and the Seidel method for the first matrix A and vector B.
         /// </summary>
         [Test]
@@ -100,11 +208,14 @@ namespace CourseWork.UnitTests
             // Arrange and Act
             static void testAction()
             {
-                var matrix = new Matrix(new float[int.MaxValue][]);
+                
+                var numbers = new float[int.MaxValue - 55][];
                 for (int i = 0; i < int.MaxValue; i++)
                 {
-                    matrix.Numbers[i] = new float[int.MaxValue];
+                    numbers[i] = new float[int.MaxValue - 55];
                 }
+
+                var matrix = new Matrix(numbers);
             }
 
             // Assert
